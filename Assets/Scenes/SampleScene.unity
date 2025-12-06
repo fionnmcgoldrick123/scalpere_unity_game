@@ -604,6 +604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundScalar: {fileID: 1366905595}
+  redBall: {fileID: 409269475}
 --- !u!1 &1366905591
 GameObject:
   m_ObjectHideFlags: 0
