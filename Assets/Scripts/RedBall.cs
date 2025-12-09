@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RedBall : MonoBehaviour, Ball 
+public class RedBall : MonoBehaviour, IBall 
 {
     public void move()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface Ball
+public interface IBall
 {
     void move();
     void die();

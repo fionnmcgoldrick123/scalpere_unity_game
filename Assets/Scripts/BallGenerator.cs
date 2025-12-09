@@ -1,16 +1,24 @@
 using System;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.UIElements;
 
 public class BallGenerator : MonoBehaviour
 {
     [SerializeField] BackgroundScaler backgroundScalar;
-    [SerializeField] RedBall redBall;
-    float screenWidth;
-    float screenHeight;
+    [SerializeField] GameObject redball;
+    private float screenWidth;
+    private float screenHeight;
 
-    private const float bottomOffset = -8;
+    [SerializeField] float minHeight = 0f;
+    [SerializeField] float maxHeight = 0f;
+    [SerializeField] float minDirection = -3f;
+    [SerializeField] float maxDirection = 3f;
+
+
+    private const float bottomOffset = -5f;
     void Start()
     {
         float screenWidth = backgroundScalar.getWidth();
@@ -21,23 +29,33 @@ public class BallGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            spawnBall(redBall);
+            spawnBall(redball);
         }
     }
 
-    void spawnBall(Ball ball)
+    void spawnBall(GameObject ball)
     {
-        // Needs randomwidth position
-        // if position is more left or right, change direction ball thrown
-        // getting ball speed
-        // getting ball arch / trajectory
-        
+        GameObject ballPrefab = Instantiate(ball);
+
         float xPos = randomWidthPos();
+
+        ballPrefab.transform.position = new Vector3(xPos, screenHeight + bottomOffset, 0f);
+
+        Rigidbody rb = ballPrefab.GetComponent<Rigidbody>();
+
+        if(rb != null)
+        {
+            float upForce = UnityEngine.Random.Range(minHeight, maxHeight); 
+            float sideForce = UnityEngine.Random.Range(minDirection, maxDirection); 
+
+            Vector3 force = new Vector3(sideForce, upForce, 0f);
+
+            rb.AddForce(force, ForceMode.Impulse);
+
+            rb.AddTorque(UnityEngine.Random.insideUnitSphere * 4f, ForceMode.Impulse);
+        }
+
         
-        var ballMono = ball as MonoBehaviour;
-        ballMono.transform.position = new Vector3(xPos, screenHeight + bottomOffset, 0);
-
-
     }
 
     private float randomWidthPos()
