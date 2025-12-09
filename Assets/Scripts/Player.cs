@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
         IBall ball = hit.collider.GetComponent<IBall>();
         MoneyManager.AssignMoney(ball.GetValue());
-        
+        MoneyUIManager.Instance.DisplayOnScreenMoneyUI(ball.GetValue(), hit.collider.transform.position);
 
         Destroy(hit.collider.gameObject);
     }
