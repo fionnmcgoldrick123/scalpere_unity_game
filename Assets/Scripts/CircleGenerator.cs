@@ -1,10 +1,17 @@
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
-
-/// <summary>
-/// Class <c> Circle Generator </c> is responsible for randomly generating circles
-/// and feeding <see cref="CircleLauncher"/> said circles. 
-/// </summary>
 public class CircleGenerator : MonoBehaviour
 {
-   
+
+    [SerializeField] private ICircle[] circles; 
+    public ICircle getRandomCircle()
+    {
+        //TODO:  Method that handles luck weights
+
+        int index = UnityEngine.Random.Range(0, circles.Length);
+        ICircle circle = circles[index];
+        return circle;
+    }
 }
